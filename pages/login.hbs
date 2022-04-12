@@ -1,0 +1,29 @@
+{{!-- <div class="container-sm d-flex flex-column align-items-center justify-content-center h-100">
+    <div class="card" style="width: 25rem;">
+        <div class="card-header">
+            <h4 class="text-center">Login page</h4>
+        </div>
+        <form method="post" action="/auth" class="card-body d-flex flex-column gap-3 align-items-center">
+            <input name="username" type="text" class="form-control" placeholder="Username">
+            <input name="password" type="password" class="form-control" placeholder="Password">
+            <button class="btn btn-primary">Sign In</button>
+        </form>
+    </div>
+</div> --}}
+
+<div class="container mx-auto flex justify-center items-center h-screen">
+    <div class="card w-96 bg-base-200 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title">Login Admin Panel!</h2>
+            <form method="post" action="/auth" autocomplete="off">
+                <div class="card-body flex flex-col justify-center">
+                    <input name="username" type="text" class="input input-bordered w-full " placeholder="Username" autocomplete="false">
+                    <input name="password" type="password" class="input input-bordered w-full " placeholder="Password" autocomplete="false">
+                </div>
+                <div class="card-actions justify-center">
+                    <button type="submit" class="btn btn-primary">Sign in</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
