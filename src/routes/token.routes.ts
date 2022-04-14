@@ -1,23 +1,30 @@
+// create router   
+// Language: typescript
 import { Router } from "express";
 import { nanoid } from "nanoid";
-import Token from "../model/token.model";
 import User, { Role } from "../model/user.model";
 import userStorage from "../storage/user.storage";
 import jwt from 'jsonwebtoken'
 import { JwtData } from "../security/jwt.data";
 import tokenStorage from "../storage/token.storage";
+import Token from "../model/token.model";
 
-
+// router
 const router = Router()
 
-router.get('/', (req, res) => res.redirect('/admin/token'))
-
-router.get('/token', async (req, res) => {
+router.get('/', async (req, res) => {
    let tokens = await tokenStorage.allTokens()
    res.render('token', { tokens })
 })
 
-router.post('/token', async (req, res) => {
+// delete token route
+router.get('/:id/remove', async (req, res) => {
+   let id = +req.params.id
+   await tokenStorage.removeToken(id)
+   res.redirect('/admin/token')
+})
+
+router.post('/', async (req, res) => {
    let { app } = req.body
    let user = new User(
       0,
@@ -34,7 +41,7 @@ router.post('/token', async (req, res) => {
    let token = new Token(0, id, app, jwtToken)
    await tokenStorage.addToken(token)
 
-   res.redirect('/admin')
+   res.redirect('/admin/token')
 })
 
 export default router

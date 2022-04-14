@@ -8,15 +8,16 @@ function permitFor(role, routes) {
 }
 const openRoutes = [
     '/auth',
+    '^/admin',
 ];
 permitFor(user_model_1.Role.User, [
     '^/api'
 ]);
-permitFor(user_model_1.Role.Admin, [
-    '^/admin',
-]);
+permitFor(user_model_1.Role.Admin, []);
 const isOpen = (route) => {
-    return openRoutes.includes(route);
+    return openRoutes.some(exp => {
+        return new RegExp(exp).test(route);
+    });
 };
 exports.isOpen = isOpen;
 const isPermitted = (route, role) => {

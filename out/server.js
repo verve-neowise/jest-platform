@@ -14,8 +14,8 @@ const express_handlebars_1 = require("express-handlebars");
 const express_session_1 = __importDefault(require("express-session"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 // Routers
-const auth_route_1 = __importDefault(require("./routes/auth.route"));
-const admin_route_1 = __importDefault(require("./routes/admin.route"));
+const auth_routes_1 = __importDefault(require("./routes/auth.routes"));
+const admin_routes_1 = __importDefault(require("./routes/admin.routes"));
 const auth_middleware_1 = __importDefault(require("./security/auth.middleware"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
@@ -33,8 +33,8 @@ app.engine('.hbs', (0, express_handlebars_1.engine)({ extname: '.hbs' }));
 app.set('view engine', '.hbs');
 app.set('views', './pages');
 app.use(auth_middleware_1.default);
-app.use('/auth', auth_route_1.default);
-app.use('/admin', admin_route_1.default);
+app.use('/auth', auth_routes_1.default);
+app.use('/admin', admin_routes_1.default);
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

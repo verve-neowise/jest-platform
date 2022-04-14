@@ -12,10 +12,11 @@ import session from 'express-session'
 import cookieParser from 'cookie-parser'
 
 // Routers
-import authRoute from './routes/auth.route'
-import adminRoute from './routes/admin.route'
+import authRoute from './routes/auth.routes'
+import adminRoute from './routes/admin.routes'
 
 import authMiddleware from './security/auth.middleware'
+import testStorage from './storage/test.storage'
 
 const app = express()
 

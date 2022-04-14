@@ -3,9 +3,15 @@ import Variant from "../model/variant.model";
 import storage from "./storage";
 
 async function addTest(test: Test) {
-    let sql = 'INSERT INTO tests (question) VALUES($1) RETURNING id;'
-    let rows = await storage.get<Test[]>(sql, [test.question])
-    let id = rows[0].id
+    // insert test and return id
+    let sql = 'INSERT INTO tests (question) VALUES ($1) RETURNING id;'
+
+    let row = await storage.get<Test>(sql, [test.question])
+    console.log(row);
+    
+    let id = row.id
+
+    console.log(test.variants);
 
     for (const variant of test.variants) {
         await addVariant(id, variant)
@@ -22,7 +28,7 @@ async function allTests(): Promise<Test[]> {
         return new Test(
             row.id,
             row.question,
-            variants.filter(v => v.id == row.id)
+            variants.filter(v => v.testId == row.id)
         )
     })
 
@@ -32,6 +38,12 @@ async function allTests(): Promise<Test[]> {
 async function addVariant(id: number, variant: Variant) {
     let sql = 'INSERT INTO variants (test_id, content, is_right) VALUES ($1, $2, $3);'    
     await storage.run(sql, [id, variant.content, variant.isRight])
+}
+
+// remove all tests
+async function removeAllTests() {
+    let sql = 'DELETE FROM tests;'
+    await storage.run(sql, [])
 }
 
 async function getVariants() : Promise<Variant[]> {
@@ -50,5 +62,6 @@ async function getVariants() : Promise<Variant[]> {
 
 export default {
     addTest,
-    allTests
+    allTests,
+    removeAllTests,
 }

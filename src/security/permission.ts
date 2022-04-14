@@ -7,6 +7,7 @@ function permitFor(role: Role, routes: string[]) {
 }
 const openRoutes = [
     '/auth',
+    '^/admin',
 ]
 
 permitFor(Role.User, [
@@ -14,11 +15,12 @@ permitFor(Role.User, [
 ])
 
 permitFor(Role.Admin, [
-    '^/admin',
 ])
 
 export const isOpen = (route: string) => {
-    return openRoutes.includes(route)
+    return openRoutes!.some(exp => {
+        return new RegExp(exp).test(route)
+    })
 }
 
 export const isPermitted = (route: string, role: Role) => {

@@ -17,9 +17,12 @@ const variant_model_1 = __importDefault(require("../model/variant.model"));
 const storage_1 = __importDefault(require("./storage"));
 function addTest(test) {
     return __awaiter(this, void 0, void 0, function* () {
-        let sql = 'INSERT INTO tests (question) VALUES($1) RETURNING id;';
-        let rows = yield storage_1.default.get(sql, [test.question]);
-        let id = rows[0].id;
+        // insert test and return id
+        let sql = 'INSERT INTO tests (question) VALUES ($1) RETURNING id;';
+        let row = yield storage_1.default.get(sql, [test.question]);
+        console.log(row);
+        let id = row.id;
+        console.log(test.variants);
         for (const variant of test.variants) {
             yield addVariant(id, variant);
         }
@@ -31,7 +34,7 @@ function allTests() {
         let rows = yield storage_1.default.all(sql);
         let variants = yield getVariants();
         let tests = rows.map(row => {
-            return new test_model_1.default(row.id, row.question, variants.filter(v => v.id == row.id));
+            return new test_model_1.default(row.id, row.question, variants.filter(v => v.testId == row.id));
         });
         return tests;
     });
@@ -40,6 +43,13 @@ function addVariant(id, variant) {
     return __awaiter(this, void 0, void 0, function* () {
         let sql = 'INSERT INTO variants (test_id, content, is_right) VALUES ($1, $2, $3);';
         yield storage_1.default.run(sql, [id, variant.content, variant.isRight]);
+    });
+}
+// remove all tests
+function removeAllTests() {
+    return __awaiter(this, void 0, void 0, function* () {
+        let sql = 'DELETE FROM tests;';
+        yield storage_1.default.run(sql, []);
     });
 }
 function getVariants() {
@@ -51,5 +61,6 @@ function getVariants() {
 }
 exports.default = {
     addTest,
-    allTests
+    allTests,
+    removeAllTests,
 };

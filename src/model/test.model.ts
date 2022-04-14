@@ -15,4 +15,5 @@ export default class Test {
         this.question = question
         this.variants = variants
     }
-}
+} 
+

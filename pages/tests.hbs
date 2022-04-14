@@ -1,0 +1,68 @@
+<div class="navbar bg-base-300">
+    <a class="btn btn-ghost normal-case text-xl"><span class="text-red-400"> Jest </span> Platform</a>
+</div>
+
+<div class="container w-3/6 flex justify-center mx-auto mt-5 gap-3">
+    <div class="flex-[2] bg-base-300">
+
+        <h1 class="text-lg px-5 font-bold my-3 flex justify-between">
+            Tests
+            <label for="my-modal-3" class="btn btn-primary btn-sm btn-success">Add Test</label>
+        </h1>
+
+        <div class="divider"></div>
+
+        <div class="p-3">
+        {{#each tests}}
+            <div class="border-t border-white/10">
+                <h1 class="text-lg font-bold mt-5"> {{id}}. {{question}} </h1>
+
+                <div class="flex flex-col gap-3 p-4">
+                {{#each variants}}
+                    <div class="flex {{#if isRight}} bg-primary {{else}}  bg-base-100 {{/if}} gap-3 p-3 rounded items-center">
+                        <span class="text-base"> {{content}} </span>
+                    </div>
+                {{/each}}
+                </div>
+            </div>
+        {{/each}}
+        </div>
+    </div>
+
+    <!-- Put this part before </body> tag -->
+    <input type="checkbox" id="my-modal-3" class="modal-toggle">
+    <div class="modal">
+        <div class="modal-box relative">
+            <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+
+            <h1 class="text-lg px-5 font-bold my-3 flex justify-between">
+                Add Test
+            </h1>
+
+            <div class="divider"></div>
+
+            <form action="/admin/tests" method="post" class="flex flex-col justify-end gap-4">
+               <textarea name="question" class="w-full textarea textarea-bordered" placeholder="Question"></textarea>
+               {{!-- text input and radio input inside div flex gap-3 --}}
+                <div class="flex gap-3 items-center">
+                     <input type="text" name="option_a" class="input input-bordered w-full" placeholder="Option A">
+                     <input required type="radio" name="answer" value="0" class="radio">
+                </div>
+                <div class="flex gap-3 items-center">
+                     <input type="text" name="option_b" class="input input-bordered w-full" placeholder="Option B">
+                     <input required type="radio" name="answer" value="1" class="radio">
+                </div>
+                <div class="flex gap-3 items-center">
+                     <input type="text" name="option_c" class="input input-bordered w-full" placeholder="Option C">
+                     <input required type="radio" name="answer" value="2" class="radio">
+                </div>
+                <div class="flex gap-3 items-center">
+                     <input type="text" name="option_d" class="input input-bordered w-full" placeholder="Option D">
+                     <input required type="radio" name="answer" value="3" class="radio">
+                </div>
+
+               <button type="submit" class="btn btn-success mt-5">Create</button>
+            </form>
+        </div>
+    </div>
+</div>
