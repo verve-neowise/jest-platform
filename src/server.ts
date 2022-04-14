@@ -14,9 +14,9 @@ import cookieParser from 'cookie-parser'
 // Routers
 import authRoute from './routes/auth.routes'
 import adminRoute from './routes/admin.routes'
+import apiRoutes from './routes/api.routes'
 
 import authMiddleware from './security/auth.middleware'
-import testStorage from './storage/test.storage'
 
 const app = express()
 
@@ -41,6 +41,7 @@ app.use(authMiddleware)
 
 app.use('/auth', authRoute)
 app.use('/admin', adminRoute)
+app.use('/api', apiRoutes)
 
 const port = process.env.PORT || 3000
 app.listen(port, () => {

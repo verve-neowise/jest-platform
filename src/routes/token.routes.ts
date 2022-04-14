@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
 })
 
 // delete token route
-router.get('/:id/remove', async (req, res) => {
+router.get('/remove/:id', async (req, res) => {
    let id = +req.params.id
    await tokenStorage.removeToken(id)
    res.redirect('/admin/token')
@@ -41,7 +41,7 @@ router.post('/', async (req, res) => {
    let token = new Token(0, id, app, jwtToken)
    await tokenStorage.addToken(token)
 
-   res.redirect('/admin/token')
+   res.redirect(req.baseUrl)
 })
 
 export default router

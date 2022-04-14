@@ -46,6 +46,12 @@ async function removeAllTests() {
     await storage.run(sql, [])
 }
 
+// remove test by id
+async function removeTest(id: number) {
+    let sql = 'DELETE FROM tests WHERE id = $1;'
+    await storage.run(sql, [id])
+}
+
 async function getVariants() : Promise<Variant[]> {
     let sql = 'select * from variants;'
     let rows = await storage.all<any>(sql)
@@ -64,4 +70,5 @@ export default {
     addTest,
     allTests,
     removeAllTests,
+    removeTest
 }

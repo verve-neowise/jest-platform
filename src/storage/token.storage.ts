@@ -7,6 +7,19 @@ async function addToken(token: Token) {
     await storage.run(sql, [token.user_id, token.app, token.token])
 }
 
+// find one token by id
+async function findToken(id: number) {
+    let sql = 'SELECT * FROM tokens WHERE id = $1;'
+    let result = await storage.get<Token>(sql, [id])
+    // map to Token
+    return new Token(
+        result.id,
+        result.user_id,
+        result.app,
+        result.token
+    )
+}
+
 async function allTokens() {
     let sql = 'SELECT * FROM tokens;'
     let rows: any[] = await storage.all(sql)
@@ -25,6 +38,7 @@ async function removeToken(id: number) {
 
 export default {
     allTokens,
+    findToken,
     removeToken,
     addToken
 }

@@ -52,6 +52,13 @@ function removeAllTests() {
         yield storage_1.default.run(sql, []);
     });
 }
+// remove test by id
+function removeTest(id) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let sql = 'DELETE FROM tests WHERE id = $1;';
+        yield storage_1.default.run(sql, [id]);
+    });
+}
 function getVariants() {
     return __awaiter(this, void 0, void 0, function* () {
         let sql = 'select * from variants;';
@@ -63,4 +70,5 @@ exports.default = {
     addTest,
     allTests,
     removeAllTests,
+    removeTest
 };

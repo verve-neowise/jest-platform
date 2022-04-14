@@ -1,11 +1,7 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -51,7 +47,7 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.render('token', { tokens });
 }));
 // delete token route
-router.get('/:id/remove', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/remove/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let id = +req.params.id;
     yield token_storage_1.default.removeToken(id);
     res.redirect('/admin/token');
@@ -64,6 +60,6 @@ router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let jwtToken = jsonwebtoken_1.default.sign(data, process.env.JWT_SECRET);
     let token = new token_model_1.default(0, id, app, jwtToken);
     yield token_storage_1.default.addToken(token);
-    res.redirect('/admin/token');
+    res.redirect(req.baseUrl);
 }));
 exports.default = router;

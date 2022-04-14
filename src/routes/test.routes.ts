@@ -41,5 +41,16 @@ router.post('/', async (req, res) => {
     res.redirect(req.baseUrl)
 })
 
+// get remove by id 
+
+router.get('/remove/:id', async (req, res) => {
+    // get id from url as number
+    let id = +req.params.id;
+    // delete test  
+    await testStorage.removeTest(id);
+    // redirect to tests
+    res.redirect(req.baseUrl)
+})
+
 // export router
 export default router;

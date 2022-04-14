@@ -1,5 +1,5 @@
 <div class="navbar bg-base-300">
-    <a class="btn btn-ghost normal-case text-xl"><span class="text-red-400"> Jest </span> Platform</a>
+    <a href="/admin" class="btn btn-ghost normal-case text-xl"><span class="text-red-400"> Jest </span> Platform</a>
 </div>
 
 <div class="container w-3/6 flex justify-center mx-auto mt-5 gap-3">
@@ -19,11 +19,14 @@
 
                 <div class="flex flex-col gap-3 p-4">
                 {{#each variants}}
-                    <div class="flex {{#if isRight}} bg-primary {{else}}  bg-base-100 {{/if}} gap-3 p-3 rounded items-center">
+                    <div class="flex {{#if isRight}} bg-success {{else}}  bg-base-100 {{/if}} gap-3 p-3 rounded items-center">
                         <span class="text-base"> {{content}} </span>
                     </div>
                 {{/each}}
                 </div>
+            </div>
+            <div class="flex gap-3 p-4">
+            <a href="/admin/tests/remove/{{id}}" class="btn btn-primary mb-3"> Delete </a>
             </div>
         {{/each}}
         </div>

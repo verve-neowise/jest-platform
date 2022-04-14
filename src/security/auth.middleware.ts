@@ -43,7 +43,7 @@ export default function(req: Request, res: Response, next: NextFunction) {
     }
 }
 
-function verify(token: string): JwtData | undefined  {
+export function verify(token: string): JwtData | undefined  {
     try {
         return jwt.verify(token, process.env.JWT_SECRET!) as JwtData
     }

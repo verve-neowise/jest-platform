@@ -1,0 +1,40 @@
+{{!-- navbar from tests.hbs --}}
+<div class="navbar bg-base-300">
+    <a href="/admin" class="btn btn-ghost normal-case text-xl"><span class="text-red-400"> Jest </span> Platform</a>
+</div>
+
+<div class="container w-3/6 flex justify-center mx-auto mt-5 gap-3">
+    <div class="flex-[2] bg-base-300">
+            
+            <h1 class="text-lg px-5 font-bold my-3 flex justify-between">
+                {{app}}
+            </h1>
+
+            <div class="divider"></div>
+
+            <div class="overflow-x-auto">
+                <table class="table w-full">
+                    <!-- head -->
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Username</th>
+                            <th>Date</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each results}}
+                        <!-- row 1 -->
+                        <tr>
+                            <th> {{id}} </th>
+                            <td> {{ username }} </td>
+                            <td> {{ date }}</td>
+                            <td> {{ count }} of {{of}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+    </div>
+</div>

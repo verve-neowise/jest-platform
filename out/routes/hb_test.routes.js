@@ -45,5 +45,14 @@ router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield test_storage_1.default.addTest(test);
     res.redirect(req.baseUrl);
 }));
+// get remove by id 
+router.get('/remove/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    // get id from url as number
+    let id = +req.params.id;
+    // delete test  
+    yield test_storage_1.default.removeTest(id);
+    // redirect to tests
+    res.redirect(req.baseUrl);
+}));
 // export router
 exports.default = router;
