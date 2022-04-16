@@ -25,7 +25,7 @@ router.post('/', async (req, res) => {
     if (user && bcrypt.compareSync(password, user.password)) {
         
         let data: JwtData = { userId: user.id, role: user.role, username: username }
-        req.session.token = jwt.sign(data, process.env.JWT_SECRET!, { expiresIn: '1h' })
+        req.session.token = jwt.sign(data, process.env.JWT_SECRET!)
         
         res.redirect('/admin')
     }

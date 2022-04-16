@@ -39,20 +39,28 @@ router.get('/results', (req, res) => __awaiter(void 0, void 0, void 0, function*
 }));
 // get all tests
 router.get('/tests', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let tests = yield test_storage_1.default.allTests();
-    // create random array with 10 elements
-    let random = randomArray(1, 10, 10);
-    // get random tests
-    let randomTests = tests.filter((test, index) => random.includes(index));
-    res.send(randomTests);
+    let result = shuffle(yield test_storage_1.default.allTests())
+        .slice(0, 10)
+        .map(test => {
+        // shuffle variants
+        test.variants = shuffle(test.variants);
+        return test;
+    });
+    res.json(result);
 }));
-// random array generator range
-function randomArray(min, max, count) {
-    let arr = [];
-    for (let i = 0; i < count; i++) {
-        let num = Math.floor(Math.random() * (max - min + 1)) + min;
-        arr.push(num);
+// shuffle array
+function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
     }
-    return arr;
+    return array;
 }
 exports.default = router;

@@ -12,16 +12,22 @@ function default_1(req, res, next) {
     }
     const token = req.session.token || req.header('Authorization');
     const isApi = req.session.token ? false : true;
+    // log token
+    console.log('from header:', token);
     // Not authorized
     if (!token) {
         return isApi ? res.sendStatus(401) : res.redirect('/auth');
     }
+    console.log('has token:', token);
     let payload = verify(token);
+    console.log('verify:', payload);
     // No has token
     if (!payload) {
         return isApi ? res.sendStatus(401) : res.redirect('/auth');
     }
+    console.log('success verify:', payload);
     if ((0, permission_1.isPermitted)(req.url, payload.role)) {
+        console.log('permitted:', req.url);
         req.payload = payload;
         return next();
     }

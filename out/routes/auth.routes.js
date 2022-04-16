@@ -28,7 +28,7 @@ router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let user = yield user_storage_1.default.findUser(username);
     if (user && bcryptjs_1.default.compareSync(password, user.password)) {
         let data = { userId: user.id, role: user.role, username: username };
-        req.session.token = jsonwebtoken_1.default.sign(data, process.env.JWT_SECRET, { expiresIn: '1h' });
+        req.session.token = jsonwebtoken_1.default.sign(data, process.env.JWT_SECRET);
         res.redirect('/admin');
     }
     else {
